@@ -1,0 +1,28 @@
+title: TECH BLOG
+description: My personal tech blog just for myself
+
+url: http://tech.ryoikarashi.com
+baseurl: ""
+paginate_path: "blog/page:num/"
+permalink: blog/:title/
+
+markdown: redcarpet
+highlighter: pygments
+gems: [jekyll-paginate]
+paginate: 10
+
+navigation:
+ - title: Home
+   url: /index.html
+ - title: About
+   url: /about
+ - title: Contact
+   url: /contact
+
+social:
+   github: RyoIkarashi
+   twitter: ryo_ikarashi
+   facebook: ry0ikarash1
+   email: me@ryoikarashi.com
+
+google_analytics: "UA-54659896-8"
