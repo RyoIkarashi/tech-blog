@@ -298,6 +298,7 @@ HTTP/1.1 200 OK
 ```
 
 Works perfect!
+Notice that every result sends HTTP status 200 and returns the appropriate array or object.
 Now you know it's really easy to design and create API with express!
 
 # Next...
