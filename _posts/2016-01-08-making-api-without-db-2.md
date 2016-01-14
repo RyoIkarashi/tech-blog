@@ -100,33 +100,46 @@ app.param('id', (req, res, next, id) => {
 ### GET /users
 
 ```js
+...
+
 app.get('/users', (req, res) => {
   res.json(users);
 });
+
+...
 ```
 
 ### GET /users/:id
 
 ```js
+...
+
 app.get('/users/:id', (req, res) => {
   let user = req.user;
   res.json(user || {});
 });
+...
 ```
 
 ### POST /users
 
 ```js
+...
+
 app.post('/users', (req, res) => {
   let user = req.body;
   users.push(user);
   res.json(user);
 });
+
+...
 ```
 
 ### PUT /users/:id
 
 ```js
+...
+
 app.put('/users/:id', updateId, (req, res) => {
   let update = req.body;
 
@@ -142,22 +155,30 @@ app.put('/users/:id', updateId, (req, res) => {
     res.json(updatedUser);
   }
 });
+
+...
 ```
 
 ### DELETE /users/:id
 
 ```js
+...
+
 app.delete('/users/:id', (req, res) => {
   let deletedUserIndex = _.findIndex(users, {id: req.params.id});
   let deletedUser = users[deletedUserIndex];
   users.splice(deletedUserIndex, 1);
   res.json(deletedUser);
 });
+
+...
 ```
 
 Then listen on port 3000.
 
 ```js
+...
+
 app.listen(port, () => {
   console.log('listening on port ', port);
 });
@@ -169,10 +190,11 @@ To do so, first of all, run the server.
 
 ```js
 node server/server.js
+
 listening on http://localhost:3000
 ```
 
-Then install [httpie](https://github.com/jkbrzt/httpie)
+Then install [httpie](https://github.com/jkbrzt/httpie) to execute http methods.
 >HTTPie (pronounced aitch-tee-tee-pie) is a command line HTTP client. Its goal is to make CLI interaction with web services as human-friendly as possible. It provides a simple http command that allows for sending arbitrary HTTP requests using a simple and natural syntax, and displays colorized output. HTTPie can be used for testing, debugging, and generally interacting with HTTP servers.
 
 source: [HTTPie: a CLI, cURL-like tool for humans](https://github.com/jkbrzt/httpie#httpie-a-cli-curl-like-tool-for-humans)
@@ -196,8 +218,6 @@ HTTP/1.1 200 OK
     }
 ]
 ```
-
-create one more user
 
 ```bash
 http POST http://localhost:3000/users name=sample
@@ -288,3 +308,6 @@ HTTP/1.1 200 OK
 
 Works perfect!
 Now you know it's really easy to design and create API with express!
+
+# Next...
+In the next post, we'll a little bit more complicated app with DB.
