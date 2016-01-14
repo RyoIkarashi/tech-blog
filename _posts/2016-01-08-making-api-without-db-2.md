@@ -105,8 +105,6 @@ app.param('id', (req, res, next, id) => {
 app.get('/users', (req, res) => {
   res.json(users);
 });
-
-...
 ```
 
 ### GET /users/:id
@@ -118,7 +116,6 @@ app.get('/users/:id', (req, res) => {
   let user = req.user;
   res.json(user || {});
 });
-...
 ```
 
 ### POST /users
@@ -131,8 +128,6 @@ app.post('/users', (req, res) => {
   users.push(user);
   res.json(user);
 });
-
-...
 ```
 
 ### PUT /users/:id
@@ -155,8 +150,6 @@ app.put('/users/:id', updateId, (req, res) => {
     res.json(updatedUser);
   }
 });
-
-...
 ```
 
 ### DELETE /users/:id
@@ -170,8 +163,6 @@ app.delete('/users/:id', (req, res) => {
   users.splice(deletedUserIndex, 1);
   res.json(deletedUser);
 });
-
-...
 ```
 
 Then listen on port 3000.
