@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Handle data with Express
+title: Handling data with Express
 date: 2016-01-06
 ---
 
@@ -151,8 +151,8 @@ node
 { name: 'Ryo Ikarashi', sex: 'male', age: '22' }
 ```
 
-Now you know the differences b/w readFileSync and readFile
-Just in case that the data returned by fs.readFileSync is "Buffer", so you have to parse it to whatever data type you want.
+Now you know the differences b/w readFileSync and readFile.
+Notice that the data returned by fs.readFileSync is "Buffer", so you have to parse it to whatever data type you want.
 
 # Next...
 In the next post, we'll create a little bit bigger app using express.
