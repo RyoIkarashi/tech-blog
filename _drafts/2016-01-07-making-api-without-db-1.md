@@ -10,8 +10,77 @@ The goal of this post is to understand how to design API and how it works with e
 This post will be a bit long, so I decided to break it to three parts, and here is the part 1.
 So, let's just get started!
 
+# Making API
+
+## Getting RESTful
+
+### What is REST?
+> REST stands for Representational State Transfer. It is a set of design principles for making network communication more scalable and flexible. These principles answer a number of questions. What are the components of the system? How should they communicate with each other? How do we ensure we can swap out different parts of the system at any time? How can the system be scaled up to serve billions of users?
+
+source: [https://codewords.recurse.com/issues/five/what-restful-actually-means](https://codewords.recurse.com/issues/five/what-restful-actually-means)
+
+>The modern web is mostly built around REST. the basics are that it should be stateless, use HTTP verbs explicitly, expose a directory like url pattern for routes, transfoer JSON and or XML.
+
+source: [http://fem-node-api.netlify.com/](http://fem-node-api.netlify.com/)
+
+## Determining resource
+
+To make an API, we should determine what the actual resource looks like. We can model this in JSON.
+
+```json
+{
+  "id": "1",
+  "name": "Ryo",
+  "age": "22",
+  "gender": "male"
+}
+```
+
+## Designing the routes
+
+Next, we should design routes to access the resource.
+We want to use the HTTP verbs (*GET*, *POST*, *PUT*, *DELETE*) to perform *CRUD* (*CREATE*, *READ*, *UPDATE*, *DELETE*)
+
+The routes look like the structure below
+
+```json
+{
+  "GET /users": {
+    "desc": "returns all users",
+    "response": "200 application/json",
+    "data": [{}, {}, {}]
+  },
+
+  "GET /users/:id": {
+    "desc": "returns one user respresented by its id",
+    "response": "200 application/json",
+    "data": {}
+  },
+
+  "POST /users": {
+    "desc": "create and returns a new user uisng the posted object as the user",
+    "response": "201 application/json",
+    "data": {}
+  },
+
+  "PUT /users/:id": {
+    "desc": "updates and returns the matching user with the posted update object",
+    "response": "200 application/json",
+    "data": {}
+  },
+
+  "DELETE /users/:id": {
+    "desc": "deletes and returns the matching user",
+    "response": "200 application/json",
+    "data": {}
+  }
+}
+```
+
+Now we have the resource and routes modeled out, we can start building the this API with express.
+
 # Middleware
-Before we dive into making API, there is a thing that we need to know.
+Before we start writing code, there is one thing that we need to know.
 That's middleware.
 
 ## What is middleware?
@@ -57,49 +126,6 @@ let errorHandlingMiddleware = (err, req, res, next) => {}
 Every middleware has an argument called next.
 
 > If the current middleware function does not end the request-response cycle, it must call next() to pass control to the next middleware function. Otherwise, the request will be left hanging.
-
-# Making API
-
-## File Structure
-Before we write code, I want you to make sure how the file structure is gonna be. Below is the file structure that we gonna go through.
-
-```
-.
-|-- server
-   |-- api
-      |-- category
-         |-- categoryController.js
-         |-- categoryModel.js
-         |-- categoryRoutes.js
-      |-- post
-         |-- postController.js
-         |-- postModel.js
-         |-- postRoutes.js
-      |-- user
-         |-- userController.js
-         |-- userModel.js
-         |-- userRoutes.js
-      |-- api.js
-   |-- auth
-      |-- auth.js
-      |-- controller.js
-      |-- routes.js
-   |-- config
-      |-- config.js
-      |-- development.js
-      |-- production.js
-      |-- testing.js
-   |-- middleware
-      |-- appMiddleware.js
-   |-- util
-      |-- logger.js
-      |-- seed.js
-   |-- server.js
-|-- index.js
-|-- package.json
-|-- procfile
-|-- README.md
-```
 
 ## Setting middleware
 First, you have to set global middleware using *app.use*
@@ -151,3 +177,45 @@ A new body object containing the parsed data is populated on the request object 
 
 source:
 [https://github.com/expressjs/body-parser#bodyparserjsonoptions](https://github.com/expressjs/body-parser#bodyparserjsonoptions)
+
+
+<!-- ## File Structure
+Before we write code, I want you to make sure how the file structure is gonna be. Below is the file structure that we gonna go through.
+
+```
+.
+|-- server
+   |-- api
+      |-- category
+         |-- categoryController.js
+         |-- categoryModel.js
+         |-- categoryRoutes.js
+      |-- post
+         |-- postController.js
+         |-- postModel.js
+         |-- postRoutes.js
+      |-- user
+         |-- userController.js
+         |-- userModel.js
+         |-- userRoutes.js
+      |-- api.js
+   |-- auth
+      |-- auth.js
+      |-- controller.js
+      |-- routes.js
+   |-- config
+      |-- config.js
+      |-- development.js
+      |-- production.js
+      |-- testing.js
+   |-- middleware
+      |-- appMiddleware.js
+   |-- util
+      |-- logger.js
+      |-- seed.js
+   |-- server.js
+|-- index.js
+|-- package.json
+|-- procfile
+|-- README.md
+``` -->
