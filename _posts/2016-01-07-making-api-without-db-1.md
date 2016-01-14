@@ -80,8 +80,7 @@ The routes look like the structure below
 Now we have the resource and routes modeled out, we can start building the this API with express.
 
 # Middleware
-Before we start writing code, there is one thing that we need to know.
-That's middleware.
+Before we start writing code, there is one thing that we need to know. That's middleware.
 
 ## What is middleware?
 
@@ -123,7 +122,8 @@ let errorHandlingMiddleware = (err, req, res, next) => {}
 ```
 
 ## Next()
-Every middleware has an argument called next.
+Every middleware has an argument named next.
+It's called by other middleware, and calls the next middleware in the stack.
 
 > If the current middleware function does not end the request-response cycle, it must call next() to pass control to the next middleware function. Otherwise, the request will be left hanging.
 
@@ -177,45 +177,3 @@ A new body object containing the parsed data is populated on the request object 
 
 source:
 [https://github.com/expressjs/body-parser#bodyparserjsonoptions](https://github.com/expressjs/body-parser#bodyparserjsonoptions)
-
-
-<!-- ## File Structure
-Before we write code, I want you to make sure how the file structure is gonna be. Below is the file structure that we gonna go through.
-
-```
-.
-|-- server
-   |-- api
-      |-- category
-         |-- categoryController.js
-         |-- categoryModel.js
-         |-- categoryRoutes.js
-      |-- post
-         |-- postController.js
-         |-- postModel.js
-         |-- postRoutes.js
-      |-- user
-         |-- userController.js
-         |-- userModel.js
-         |-- userRoutes.js
-      |-- api.js
-   |-- auth
-      |-- auth.js
-      |-- controller.js
-      |-- routes.js
-   |-- config
-      |-- config.js
-      |-- development.js
-      |-- production.js
-      |-- testing.js
-   |-- middleware
-      |-- appMiddleware.js
-   |-- util
-      |-- logger.js
-      |-- seed.js
-   |-- server.js
-|-- index.js
-|-- package.json
-|-- procfile
-|-- README.md
-``` -->
