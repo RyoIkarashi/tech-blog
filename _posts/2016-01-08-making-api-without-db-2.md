@@ -301,5 +301,138 @@ Works perfect!
 Notice that every result sends HTTP status 200 and returns the appropriate array or object.
 Now you know it's really easy to design and create API with express!
 
+# Separating the router
+We've created node server with a single file.
+Next step is that we'll make complete separate routers as external modules, which is a new feature of Express4.
+Let's get a shot!
+
+### Create new server.js file
+
+server.js
+
+```js
+'use strict';
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const _ = require('lodash');
+
+// require an external router as userRouter
+const userRouter = require('./users');
+
+const port = 3000;
+
+app.use(express.static('client'));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+// this is called mounting. when ever a req comes in for
+// '/user' we want to use this router
+app.use('/users', userRouter);
+
+app.use((err, req, res, next) => {
+  if(err) {
+    res.status(500).send(err);
+  }
+});
+
+app.listen(port);
+```
+
+### Create a new router file
+
+First, we create a file which is gonna be a router as a module.
+
+```bash
+touch users.js
+```
+
+### Create an external router
+
+Here is *users.js* file in advance.
+
+```js
+// In order to use some ES6 features
+'use strict';
+
+// Require some modules
+const _ = require('lodash');
+// Create a new router.
+const userRouter = require('express').Router();
+
+// Set up global variables
+let users = [];
+let id = 0;
+
+// Another Middleware
+const updateId = (req, res, next) => {
+  if (!req.body.id) {
+    id++;
+    req.body.id = id + '';
+  }
+  next();
+};
+
+// Notice the router is not app but userRouter
+userRouter.param('id', (req, res, next, id) => {...});
+
+userRouter.get('/', (req, res) => {...});
+
+userRouter.get('/:id', (req, res) => {...});
+
+userRouter.post('/', updateId, (req, res) => {...});
+
+userRouter.delete('/:id', (req, res) => {...});
+
+userRouter.put('/:id', (req, res) => {...});
+
+// Finally export the router as a module.
+module.exports = userRouter;
+```
+
+As you can see the code, there are some important changes to keep in mind.
+The first biggest change is that we create a new router named *userRouter*.
+
+```js
+const userRouter = require('express').Router();
+```
+
+You'll also realize that the API path is different.
+This is because you mount */users* in the server.js file using *userRouter*.
+
+```js
+...
+userRouter.param('id', (req, res, next, id) => {...});
+userRouter.get('/', (req, res) => {...});
+userRouter.get('/:id', (req, res) => {...});
+userRouter.post('/', updateId, (req, res) => {...});
+userRouter.put('/:id', (req, res) => {...});
+userRouter.delete('/:id', (req, res) => {...});
+...
+```
+
+server.js
+
+```js
+...
+const userRouter = require('./users');
+...
+app.use('/users', userRouter);
+...
+```
+
+
+The last thing you should notice is that we're exporting the router to be required from *server.js* file.
+
+```js
+...
+module.exports = userRouter;
+```
+
+Now you've separated the router completely as a module.
+This is really helpful when you create a bigger and more complicated app.
+
 # Next...
-In the next post, we'll a little bit more complicated app with DB.
+In the next post, we'll create a more complicated app using multiple routers and resources which is a bit closer to a real app.
+So, let's dive into it!

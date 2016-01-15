@@ -1,3 +1,13 @@
+---
+title: Making API without DB [Part3]
+date: 2016-01-10
+---
+
+# In this post...
+We're going to create separate routers so we can separate the functionalities that each router has.
+
+# API
+
 <!-- ## File Structure
 Before we write code, I want you to make sure how the file structure is gonna be. Below is the file structure that we gonna go through.
 
