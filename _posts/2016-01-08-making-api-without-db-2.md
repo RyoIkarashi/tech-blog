@@ -433,6 +433,8 @@ module.exports = userRouter;
 Now you've separated the router completely as a module.
 This is really helpful when you create a bigger and more complicated app.
 
+Here are the [gists](https://gist.github.com/RyoIkarashi/26f972cbb9381fb3c5f1).
+
 # Next...
 In the next post, we'll create a more complicated app using multiple routers and resources which is a bit closer to a real app.
 So, let's dive into it!
